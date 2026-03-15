@@ -8,7 +8,13 @@ from datetime import time
 TOKEN = os.getenv("TOKEN")
 CHANNEL_ID = 1475585161876738272
 
-DRIVE_FOLDER = "https://drive.google.com/drive/folders/1Xry7zBispB-ZbNS2lx88bqMh-oCcuxdr?usp=sharing"
+DRIVE_FOLDERS = [
+"https://drive.google.com/drive/folders/1qMw9LNtHU5-kwIink9tykVw8EaGrFgNg?usp=sharing",
+"https://drive.google.com/drive/folders/1WDimEvfvBNh7qRIZpV8ZLwWyxbwCE8Qt?usp=sharing",
+"https://drive.google.com/drive/folders/19omJ7QsNsn3PXnxLIlQylYWfEGRcWb4p?usp=sharing",
+"https://drive.google.com/drive/folders/1GT8x6uqHwtE4Z1AEvtxLHDVwptDbYr9P?usp=sharing",
+"https://drive.google.com/drive/folders/1hG1IJyU1bnTKQYZyCklA38b857VhYlt_?usp=sharing"
+]
 
 DOWNLOAD_FOLDER = "videos"
 
@@ -21,14 +27,15 @@ async def download_videos():
     if not os.path.exists(DOWNLOAD_FOLDER):
         os.makedirs(DOWNLOAD_FOLDER)
 
-    gdown.download_folder(DRIVE_FOLDER, output=DOWNLOAD_FOLDER, quiet=True)
+    for folder in DRIVE_FOLDERS:
+        gdown.download_folder(folder, output=DOWNLOAD_FOLDER, quiet=True)
 
 
 async def post_videos():
 
     channel = client.get_channel(CHANNEL_ID)
 
-    videos = os.listdir(DOWNLOAD_FOLDER)
+    videos = [v for v in os.listdir(DOWNLOAD_FOLDER) if v.endswith((".mp4",".mov"))]
 
     selected = random.sample(videos, min(6, len(videos)))
 
