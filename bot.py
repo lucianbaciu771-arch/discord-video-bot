@@ -30,14 +30,14 @@ async def post_videos():
 
     videos = os.listdir(DOWNLOAD_FOLDER)
 
-    selected = random.sample(videos, 6)
+    selected = random.sample(videos, min(6, len(videos)))
 
     for video in selected:
 
         await channel.send(file=discord.File(f"{DOWNLOAD_FOLDER}/{video}"))
 
 
-@tasks.loop(time=time(hour=20, minute=0))
+@tasks.loop(seconds=60)
 async def daily_post():
 
     await download_videos()
