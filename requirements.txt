@@ -1,2 +1,2 @@
 discord.py
-gdown
+gdown>=5.1.0
