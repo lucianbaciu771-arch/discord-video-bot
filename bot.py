@@ -52,7 +52,12 @@ async def post_videos():
 @tasks.loop(seconds=60)
 async def daily_post():
 
-    await download_videos()
+    await download_videos(import shutil
+
+if os.path.exists(DOWNLOAD_FOLDER):
+    shutil.rmtree(DOWNLOAD_FOLDER)
+
+os.makedirs(DOWNLOAD_FOLDER))
     await post_videos()
 
 
