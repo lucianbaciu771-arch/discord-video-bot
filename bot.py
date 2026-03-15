@@ -28,7 +28,12 @@ async def download_videos():
         os.makedirs(DOWNLOAD_FOLDER)
 
     for folder in DRIVE_FOLDERS:
-        gdown.download_folder(folder, output=DOWNLOAD_FOLDER, quiet=True)
+        gdown.download_folder(
+    folder,
+    output=DOWNLOAD_FOLDER,
+    quiet=True,
+    use_cookies=False
+)
 
 
 async def post_videos():
